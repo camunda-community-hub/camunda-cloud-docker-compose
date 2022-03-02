@@ -1,4 +1,4 @@
-# ccsm
+# Camunda Cloud Self Managed Docker Compose
 docker-compose file to stand up a complete Camunda Cloud Self Managed (Zeebe, Elasticsearch, Operate, Tasklist, IAM, IAM database, and Optimize) environment for development purposes. Note, it has been tested with Zeebe, IAM, Operate, and Tasklist v1.3.4 and Optimize v3.7.1.
 
 Clone this repo and update your hosts files to include:
