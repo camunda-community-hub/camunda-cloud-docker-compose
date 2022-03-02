@@ -1,0 +1,42 @@
+---
+zeebe:
+  host: 0.0.0.0
+  log:
+    level: debug
+  broker:
+    cluster:
+      partitionsCount: 2
+    backpressure:
+      enabled: false
+    exporters:
+      # Exporter for Operate and Tasklist. These applications require all flags to be true. Creating two separate exporters allows for finer grained control
+      elasticsearch:
+        className: io.camunda.zeebe.exporter.ElasticsearchExporter
+        args:
+          url: "http://elasticsearch:9200"
+          bulk:
+            size: 1
+      # Exporter for Optimize
+      optimize:
+        className: io.camunda.zeebe.exporter.ElasticsearchExporter
+        args:
+          url: "http://elasticsearch:9200"
+          index:
+            prefix: zeebe-record
+            createTemplate: true
+            command: false
+            event: true
+            rejection: false
+            deployment: false
+            process: true
+            error: false
+            incident: true
+            job: false
+            jobBatch: false
+            message: false
+            messageSubscription: false
+            variable: true
+            variableDocument: false
+            processInstance: true
+            processInstanceCreation: true
+            processMessageSubscription: false
