@@ -33,7 +33,8 @@ services:
     hostname: iam-backend
     depends_on:
       - iam-database
-      - iam-mailserver
+      # Uncomment only if you want to use a mail server
+#      - iam-mailserver
     environment:
     # Optional settings for an optional email component for IAM. See iam-mailserver below. Disabled by default in on prem
 #      SMTP_HOST: localhost
