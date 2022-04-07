@@ -16,9 +16,9 @@ docker-compose -f ccsm-all.yml up -d
 
 Wait a few minutes for the environment to start up and settle down. Monitor the logs, especially the Keycloak container log, to ensure the components have started.
 
-Now you can navigate to: <br><h3>Operate http://localhost:8081
-<br>Tasklist http://localhost:8082
-<br>Optimize http://localhost:8090</h3>
+Now you can navigate to: <br><h3>Operate <br>http://localhost:8081
+<br><br>Tasklist <br>http://localhost:8082
+<br><br>Optimize <br>http://localhost:8090</h3>
 And log in as demo/demo
 
 You'll notice Identity/Keycloak are being used to log into each application.
