@@ -17,10 +17,8 @@ docker-compose -f ccsm-all.yml up -d
 Wait a few minutes for the environment to start up and settle down. Monitor the logs, especially the Keycloak container log, to ensure the components have started.
 
 Now you can navigate to: <br><h3>Operate http://localhost:8081
-<br>Tasklist (http://localhost:8082)
-<br>Optimize (http://localhost:8090)</h3>
-You'll notice you're using Identity/Keycloak to log into each application.
+<br>Tasklist http://localhost:8082
+<br>Optimize http://localhost:8090</h3>
+You'll notice Identity/Keycloak are being used to log into each application.
 
-Zeebe, Operate, Tasklist, along with Optimize require a separate network from Identity as you'll see in the docker-compose file. You'll also notice in the zeebe-application.yml file there are two exporters defined, one for Operate and Tasklist and one for Optimize. Feedback and updates are welcome!
-
-Identity
+Zeebe, Operate, Tasklist, along with Optimize require a separate network from Identity as you'll see in the docker-compose file. You'll also notice there are two exporters defined in the zeebe-application.yml file, one for Operate and Tasklist and one for Optimize. Feedback and updates are welcome!
