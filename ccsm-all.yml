@@ -10,6 +10,7 @@ services:
       - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m"
     restart: always
     volumes:
+      - zeebe:/usr/local/zeebe/data
       - ./zeebe-application.yml:/usr/local/zeebe/config/application.yaml
     networks:
       - camunda-cloud
@@ -155,8 +156,14 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
     networks:
       - camunda-cloud
+
+volumes:
+    zeebe:
+    elastic:
 
 networks:
   # Note there are two bridge networks. One for Zeebe and one for IAM. Operate, Tasklist, and Optimize use both
