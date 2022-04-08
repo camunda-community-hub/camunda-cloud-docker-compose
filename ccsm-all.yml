@@ -7,11 +7,15 @@ services:
       - "26500:26500"
       - "9600:9600"
     environment:
+      # All available environment variables are documented in:
+      # https://github.com/camunda/zeebe/blob/main/dist/src/main/config/broker.standalone.yaml.template
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.camunda.zeebe.exporter.ElasticsearchExporter
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_URL=http://elasticsearch:9200
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_BULK_SIZE=1
       - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m"
     restart: always
     volumes:
       - zeebe:/usr/local/zeebe/data
-      - ./zeebe-application.yml:/usr/local/zeebe/config/application.yaml
     networks:
       - camunda-cloud
     depends_on:
@@ -83,7 +87,7 @@ services:
       - CAMUNDA_OPTIMIZE_ENTERPRISE=false
       - CAMUNDA_OPTIMIZE_ZEEBE_ENABLED=true
       - CAMUNDA_OPTIMIZE_ZEEBE_NAME=zeebe-record
-      - CAMUNDA_OPTIMIZE_ZEEBE_PARTITION_COUNT=2
+      - CAMUNDA_OPTIMIZE_ZEEBE_PARTITION_COUNT=1
       - CAMUNDA_OPTIMIZE_SHARING_ENABLED=false
       - CAMUNDA_OPTIMIZE_UI_LOGOUT_HIDDEN=true
       - CAMUNDA_OPTIMIZE_API_AUDIENCE=optimize
