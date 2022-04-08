@@ -3,22 +3,24 @@ services:
   zeebe:
     image: camunda/zeebe:${CAMUNDA_CLOUD_VERSION:-8.0.0}
     container_name: zeebe
-    environment:
-      - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m"
     ports:
       - "26500:26500"
       - "9600:9600"
+    environment:
+      - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m"
     restart: always
     volumes:
       - ./zeebe-application.yml:/usr/local/zeebe/config/application.yaml
-    depends_on:
-      - elasticsearch
     networks:
       - camunda-cloud
+    depends_on:
+      - elasticsearch
 
   operate:
       image: camunda/operate:${CAMUNDA_CLOUD_VERSION:-8.0.0}
       container_name: operate
+      ports:
+        - "8081:8080"
       environment:
 #        # For more information regarding configuration with Identity see: https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#iam
         - SPRING_PROFILES_ACTIVE=identity-auth
@@ -30,8 +32,6 @@ services:
         - CAMUNDA_OPERATE_ZEEBE_GATEWAYADDRESS=zeebe:26500
         - CAMUNDA_OPERATE_ELASTICSEARCH_URL=http://elasticsearch:9200
         - CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
-      ports:
-        - "8081:8080"
       networks:
         - camunda-cloud
         - identity-network
@@ -41,6 +41,8 @@ services:
   tasklist:
       image: camunda/tasklist:${CAMUNDA_CLOUD_VERSION:-8.0.0}
       container_name: tasklist
+      ports:
+        - "8082:8080"
       environment:
         # For more information regarding configuration with IAM see: https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#iam
         - SPRING_PROFILES_ACTIVE=identity-auth
@@ -54,8 +56,6 @@ services:
         - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
         - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_CLUSTERNAME=elasticsearch
         - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_PREFIX=zeebe-record
-      ports:
-        - "8082:8080"
       networks:
         - camunda-cloud
         - identity-network
@@ -64,9 +64,8 @@ services:
 
   optimize:
     # For more information see: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
-    restart: on-failure
-    container_name: optimize
     image: camunda/optimize:${CAMUNDA_OPERATE_VERSION:-3.8.0-RC2}
+    container_name: optimize
     ports:
       - "8090:8090"
     environment:
@@ -88,12 +87,12 @@ services:
       - CAMUNDA_OPTIMIZE_UI_LOGOUT_HIDDEN=true
       - CAMUNDA_OPTIMIZE_API_AUDIENCE=optimize
       - OPTIMIZE_API_ACCESS_TOKEN=secret
+    restart: on-failure
     networks:
       - camunda-cloud
       - identity-network
 
   identity:
-    restart: on-failure
     container_name: identity
     image: camunda/identity:8.0.0
     ports:
@@ -115,6 +114,7 @@ services:
       KEYCLOAK_USERS_0_ROLES_1: "Optimize"
       KEYCLOAK_USERS_0_ROLES_2: "Operate"
       KEYCLOAK_USERS_0_ROLES_3: "Tasklist"
+    restart: on-failure
     networks:
       - identity-network
     depends_on:
@@ -134,6 +134,9 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.16.2}
     container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
     environment:
       - cluster.name=elasticsearch
       - bootstrap.memory_lock=true
@@ -143,9 +146,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - "9200:9200"
-      - "9300:9300"
     restart: always
     # cpu_count and mem_limit may not work or might be ignored by your version of docker-compose. Uncomment if desired and is supported by your version of docker-compose
 #    cpu_count: 4
