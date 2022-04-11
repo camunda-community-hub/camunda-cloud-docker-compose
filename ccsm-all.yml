@@ -1,7 +1,7 @@
 services:
 
   zeebe:
-    image: camunda/zeebe:${CAMUNDA_CLOUD_VERSION:-8.0.0}
+    image: camunda/zeebe:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
     container_name: zeebe
     ports:
       - "26500:26500"
@@ -20,12 +20,12 @@ services:
     volumes:
       - zeebe:/usr/local/zeebe/data
     networks:
-      - camunda-cloud
+      - camunda-platform
     depends_on:
       - elasticsearch
 
   operate:
-      image: camunda/operate:${CAMUNDA_CLOUD_VERSION:-8.0.0}
+      image: camunda/operate:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
       container_name: operate
       ports:
         - "8081:8080"
@@ -41,14 +41,14 @@ services:
         - CAMUNDA_OPERATE_ELASTICSEARCH_URL=http://elasticsearch:9200
         - CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
       networks:
-        - camunda-cloud
+        - camunda-platform
         - identity-network
       depends_on:
         - keycloak
         - elasticsearch
 
   tasklist:
-      image: camunda/tasklist:${CAMUNDA_CLOUD_VERSION:-8.0.0}
+      image: camunda/tasklist:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
       container_name: tasklist
       ports:
         - "8082:8080"
@@ -66,7 +66,7 @@ services:
         - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_CLUSTERNAME=elasticsearch
         - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_PREFIX=zeebe-record
       networks:
-        - camunda-cloud
+        - camunda-platform
         - identity-network
       depends_on:
         - keycloak
@@ -99,7 +99,7 @@ services:
       - OPTIMIZE_API_ACCESS_TOKEN=secret
     restart: on-failure
     networks:
-      - camunda-cloud
+      - camunda-platform
       - identity-network
     depends_on:
       - keycloak
@@ -173,7 +173,7 @@ services:
     volumes:
       - elastic:/usr/share/elasticsearch/data
     networks:
-      - camunda-cloud
+      - camunda-platform
 
 volumes:
     zeebe:
@@ -181,5 +181,5 @@ volumes:
 
 networks:
   # Note there are two bridge networks. One for Zeebe and one for Identity. Operate, Tasklist, and Optimize use both
-  camunda-cloud:
+  camunda-platform:
   identity-network:
