@@ -23,4 +23,4 @@ And log in as demo/demo
 
 You'll notice [Identity](http:/localhost:8084)/[Keycloak](http:/localhost:18080) are being used to log into each application.
 
-Zeebe, Operate, Tasklist, along with Optimize require a separate network from Identity as you'll see in the docker-compose file. You'll also notice there are two exporters defined in the zeebe-application.yml file, one for Operate and Tasklist and one for Optimize. Feedback and updates are welcome!
+Zeebe, Operate, Tasklist, along with Optimize require a separate network from Identity as you'll see in the docker-compose file. Feedback and updates are welcome!
