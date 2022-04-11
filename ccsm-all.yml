@@ -74,7 +74,6 @@ services:
       - CAMUNDA_TASKLIST_ZEEBE_GATEWAYADDRESS=zeebe:26500
       - CAMUNDA_TASKLIST_ELASTICSEARCH_URL=http://elasticsearch:9200
       - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
-      - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_CLUSTERNAME=elasticsearch
       - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_PREFIX=zeebe-record
     networks:
       - camunda-platform
@@ -164,7 +163,6 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - cluster.name=camunda-platform
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       # allow running with low disk space
