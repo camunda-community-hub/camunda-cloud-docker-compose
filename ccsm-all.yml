@@ -88,7 +88,7 @@ services:
     image: camunda/optimize:${CAMUNDA_OPERATE_VERSION:-3.8.0-RC2}
     container_name: optimize
     ports:
-      - "8090:8090"
+      - "8083:8090"
     environment:
       # See: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
       - SPRING_PROFILES_ACTIVE=ccsm
@@ -128,7 +128,7 @@ services:
       KEYCLOAK_URL: http://keycloak:8080/auth
       IDENTITY_AUTH_PROVIDER_BACKEND_URL: http://keycloak:8080/auth/realms/camunda-platform
       KEYCLOAK_INIT_OPTIMIZE_SECRET: XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
-      KEYCLOAK_INIT_OPTIMIZE_ROOT_URL: http://localhost:8090
+      KEYCLOAK_INIT_OPTIMIZE_ROOT_URL: http://localhost:8083
       KEYCLOAK_INIT_OPERATE_SECRET: XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
       KEYCLOAK_INIT_OPERATE_ROOT_URL: http://localhost:8081
       KEYCLOAK_INIT_TASKLIST_SECRET: XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
