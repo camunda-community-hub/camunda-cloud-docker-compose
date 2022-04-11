@@ -5,7 +5,7 @@ services:
     # For more information see: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
     restart: on-failure
     container_name: optimize
-    image: camunda/optimize:latest
+    image: camunda/optimize:3.8.0-RC2
     ports:
       - "8090:8090"
     environment:
@@ -96,7 +96,7 @@ services:
       - camunda-cloud
 
   operate:
-      image: camunda/operate:latest
+      image: camunda/operate:8.0.0
       container_name: operate
       environment:
 #        # For more information regarding configuration with Identity see: https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#iam
@@ -117,7 +117,7 @@ services:
       depends_on:
         - elasticsearch
   tasklist:
-      image: camunda/tasklist:latest
+      image: camunda/tasklist:8.0.0
       container_name: tasklist
       environment:
         # For more information regarding configuration with IAM see: https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#iam
@@ -140,7 +140,7 @@ services:
       depends_on:
         - elasticsearch
   zeebe:
-    image: camunda/zeebe:latest
+    image: camunda/zeebe:8.0.0
     container_name: zeebe
     environment:
       - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m"
