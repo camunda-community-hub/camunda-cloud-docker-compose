@@ -11,7 +11,7 @@ Clone this repo and update your hosts files to include:
 Issue the following command to start up your environment:
 
 ```
-docker-compose -f ccsm-all.yml up -d
+docker-compose -f docker-compose-all.yml up -d
 ```
 
 Wait a few minutes for the environment to start up and settle down. Monitor the logs, especially the Keycloak container log, to ensure the components have started.
