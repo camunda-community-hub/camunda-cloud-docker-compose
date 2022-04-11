@@ -180,6 +180,6 @@ volumes:
     elastic:
 
 networks:
-  # Note there are two bridge networks. One for Zeebe and one for IAM. Operate, Tasklist, and Optimize use both
-  camunda-cloud: { }
-  identity-network: { }
+  # Note there are two bridge networks. One for Zeebe and one for Identity. Operate, Tasklist, and Optimize use both
+  camunda-cloud:
+  identity-network:
