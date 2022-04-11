@@ -97,8 +97,6 @@ services:
       - CAMUNDA_OPTIMIZE_SECURITY_AUTH_COOKIE_SAME_SITE_ENABLED=false
       - CAMUNDA_OPTIMIZE_ENTERPRISE=false
       - CAMUNDA_OPTIMIZE_ZEEBE_ENABLED=true
-      - CAMUNDA_OPTIMIZE_SHARING_ENABLED=true
-      - CAMUNDA_OPTIMIZE_UI_LOGOUT_HIDDEN=true
     restart: on-failure
     networks:
       - camunda-platform
