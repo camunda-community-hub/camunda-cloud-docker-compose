@@ -36,7 +36,9 @@ services:
     ports:
       - "8081:8080"
     environment:
-#        # For more information regarding configuration with Identity see: https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#iam
+      # See: https://docs.camunda.io/docs/self-managed/operate-deployment/configuration/
+      # For more information regarding configuration with Identity see:
+      # https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#identity
       - SPRING_PROFILES_ACTIVE=identity-auth
       - CAMUNDA_OPERATE_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
       - CAMUNDA_OPERATE_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
@@ -59,7 +61,9 @@ services:
     ports:
       - "8082:8080"
     environment:
-        # For more information regarding configuration with IAM see: https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#iam
+      # See: https://docs.camunda.io/docs/self-managed/tasklist-deployment/configuration/
+      # For more information regarding configuration with Identity see:
+      # https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#identity
       - SPRING_PROFILES_ACTIVE=identity-auth
       - CAMUNDA_TASKLIST_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
       - CAMUNDA_TASKLIST_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
@@ -79,12 +83,12 @@ services:
       - elasticsearch
 
   optimize:
-    # For more information see: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
     image: camunda/optimize:${CAMUNDA_OPERATE_VERSION:-3.8.0-RC2}
     container_name: optimize
     ports:
       - "8090:8090"
     environment:
+      # See: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
       - SPRING_PROFILES_ACTIVE=ccsm
       - CAMUNDA_OPTIMIZE_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
       - CAMUNDA_OPTIMIZE_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
@@ -117,6 +121,7 @@ services:
     ports:
       - "8084:8084"
     environment:
+      # See: https://docs.camunda.io/docs/self-managed/identity/deployment/configuration-variables/
       SERVER_PORT: 8084
       KEYCLOAK_URL: http://keycloak:8080/auth
       IDENTITY_AUTH_PROVIDER_BACKEND_URL: http://keycloak:8080/auth/realms/camunda-platform
