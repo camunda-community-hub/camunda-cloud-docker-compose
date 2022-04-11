@@ -151,12 +151,12 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      - cluster.name=elasticsearch
+      - cluster.name=camunda-platform
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       # allow running with low disk space
       - cluster.routing.allocation.disk.threshold_enabled=false
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
