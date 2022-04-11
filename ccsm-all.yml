@@ -109,9 +109,9 @@ services:
     container_name: identity
     image: camunda/identity:8.0.0
     ports:
-      - "8084:8081"
+      - "8084:8084"
     environment:
-      SERVER_PORT: 8081
+      SERVER_PORT: 8084
       KEYCLOAK_URL: http://keycloak:8080/auth
       IDENTITY_AUTH_PROVIDER_BACKEND_URL: http://keycloak:8080/auth/realms/camunda-platform
       KEYCLOAK_INIT_OPTIMIZE_SECRET: XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
