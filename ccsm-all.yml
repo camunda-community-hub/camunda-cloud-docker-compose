@@ -52,6 +52,7 @@ services:
       - camunda-platform
       - identity-network
     depends_on:
+      - zeebe
       - keycloak
       - elasticsearch
 
@@ -79,6 +80,7 @@ services:
       - camunda-platform
       - identity-network
     depends_on:
+      - zeebe
       - keycloak
       - elasticsearch
 
@@ -112,6 +114,7 @@ services:
       - camunda-platform
       - identity-network
     depends_on:
+      - zeebe
       - keycloak
       - elasticsearch
 
