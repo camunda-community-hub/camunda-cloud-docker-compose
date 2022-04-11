@@ -53,7 +53,7 @@ services:
       - identity-network
     depends_on:
       - zeebe
-      - keycloak
+      - identity
       - elasticsearch
 
   tasklist:
@@ -81,7 +81,7 @@ services:
       - identity-network
     depends_on:
       - zeebe
-      - keycloak
+      - identity
       - elasticsearch
 
   optimize:
@@ -114,8 +114,7 @@ services:
       - camunda-platform
       - identity-network
     depends_on:
-      - zeebe
-      - keycloak
+      - identity
       - elasticsearch
 
   identity:
