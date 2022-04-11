@@ -31,52 +31,52 @@ services:
       - elasticsearch
 
   operate:
-      image: camunda/operate:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
-      container_name: operate
-      ports:
-        - "8081:8080"
-      environment:
+    image: camunda/operate:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
+    container_name: operate
+    ports:
+      - "8081:8080"
+    environment:
 #        # For more information regarding configuration with Identity see: https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#iam
-        - SPRING_PROFILES_ACTIVE=identity-auth
-        - CAMUNDA_OPERATE_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
-        - CAMUNDA_OPERATE_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
-        - CAMUNDA_OPERATE_IDENTITY_CLIENTID=operate
-        - CAMUNDA_OPERATE_IDENTITY_CLIENTSECRET=XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
-        - CAMUNDA_OPERATE_IDENTITY_AUDIENCE=operate-api
-        - CAMUNDA_OPERATE_ZEEBE_GATEWAYADDRESS=zeebe:26500
-        - CAMUNDA_OPERATE_ELASTICSEARCH_URL=http://elasticsearch:9200
-        - CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
-      networks:
-        - camunda-platform
-        - identity-network
-      depends_on:
-        - keycloak
-        - elasticsearch
+      - SPRING_PROFILES_ACTIVE=identity-auth
+      - CAMUNDA_OPERATE_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
+      - CAMUNDA_OPERATE_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
+      - CAMUNDA_OPERATE_IDENTITY_CLIENTID=operate
+      - CAMUNDA_OPERATE_IDENTITY_CLIENTSECRET=XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
+      - CAMUNDA_OPERATE_IDENTITY_AUDIENCE=operate-api
+      - CAMUNDA_OPERATE_ZEEBE_GATEWAYADDRESS=zeebe:26500
+      - CAMUNDA_OPERATE_ELASTICSEARCH_URL=http://elasticsearch:9200
+      - CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+      - camunda-platform
+      - identity-network
+    depends_on:
+      - keycloak
+      - elasticsearch
 
   tasklist:
-      image: camunda/tasklist:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
-      container_name: tasklist
-      ports:
-        - "8082:8080"
-      environment:
+    image: camunda/tasklist:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
+    container_name: tasklist
+    ports:
+      - "8082:8080"
+    environment:
         # For more information regarding configuration with IAM see: https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#iam
-        - SPRING_PROFILES_ACTIVE=identity-auth
-        - CAMUNDA_TASKLIST_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
-        - CAMUNDA_TASKLIST_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
-        - CAMUNDA_TASKLIST_IDENTITY_CLIENTID=tasklist
-        - CAMUNDA_TASKLIST_IDENTITY_CLIENTSECRET=XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
-        - CAMUNDA_TASKLIST_IDENTITY_AUDIENCE=tasklist-api
-        - CAMUNDA_TASKLIST_ZEEBE_GATEWAYADDRESS=zeebe:26500
-        - CAMUNDA_TASKLIST_ELASTICSEARCH_URL=http://elasticsearch:9200
-        - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
-        - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_CLUSTERNAME=elasticsearch
-        - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_PREFIX=zeebe-record
-      networks:
-        - camunda-platform
-        - identity-network
-      depends_on:
-        - keycloak
-        - elasticsearch
+      - SPRING_PROFILES_ACTIVE=identity-auth
+      - CAMUNDA_TASKLIST_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
+      - CAMUNDA_TASKLIST_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
+      - CAMUNDA_TASKLIST_IDENTITY_CLIENTID=tasklist
+      - CAMUNDA_TASKLIST_IDENTITY_CLIENTSECRET=XALaRPl5qwTEItdwCMiPS62nVpKs7dL7
+      - CAMUNDA_TASKLIST_IDENTITY_AUDIENCE=tasklist-api
+      - CAMUNDA_TASKLIST_ZEEBE_GATEWAYADDRESS=zeebe:26500
+      - CAMUNDA_TASKLIST_ELASTICSEARCH_URL=http://elasticsearch:9200
+      - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_URL=http://elasticsearch:9200
+      - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_CLUSTERNAME=elasticsearch
+      - CAMUNDA_TASKLIST_ZEEBEELASTICSEARCH_PREFIX=zeebe-record
+    networks:
+      - camunda-platform
+      - identity-network
+    depends_on:
+      - keycloak
+      - elasticsearch
 
   optimize:
     # For more information see: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
@@ -182,8 +182,8 @@ services:
       - camunda-platform
 
 volumes:
-    zeebe:
-    elastic:
+  zeebe:
+  elastic:
 
 networks:
   # Note there are two bridge networks. One for Zeebe and one for Identity. Operate, Tasklist, and Optimize use both
