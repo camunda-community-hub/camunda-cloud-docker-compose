@@ -6,6 +6,9 @@
 # For local development, we recommend using KIND instead of `docker-compose`:
 # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/kubernetes-helm/#installing-the-camunda-helm-chart-locally-using-kind
 
+# This is a full configuration with Zeebe, Operate, Tasklist, Optimize, Identity, Keycloak, and Elasticsearch
+# See docker-compose.yml for a lightweight configuration that does not include Optimize, Identity, and Keycloak.
+
 services:
 
   zeebe: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#zeebe
