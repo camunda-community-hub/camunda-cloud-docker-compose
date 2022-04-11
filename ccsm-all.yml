@@ -99,8 +99,6 @@ services:
       - CAMUNDA_OPTIMIZE_ZEEBE_ENABLED=true
       - CAMUNDA_OPTIMIZE_SHARING_ENABLED=true
       - CAMUNDA_OPTIMIZE_UI_LOGOUT_HIDDEN=true
-      - CAMUNDA_OPTIMIZE_API_AUDIENCE=optimize
-      - OPTIMIZE_API_ACCESS_TOKEN=secret
     restart: on-failure
     networks:
       - camunda-platform
