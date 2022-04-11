@@ -4,17 +4,16 @@
 # https://docs.camunda.io/docs/self-managed/platform-deployment/kubernetes-helm/
 # For local development, we recommend using KIND with a similar configuration provided here:
 # https://docs.camunda.io/docs/self-managed/platform-deployment/kubernetes-helm/#installing-the-camunda-helm-chart-locally-using-kind
+
 services:
 
-  zeebe:
+  zeebe: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#zeebe
     image: camunda/zeebe:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
     container_name: zeebe
     ports:
       - "26500:26500"
       - "9600:9600"
-    environment:
-      # All available environment variables are documented in:
-      # https://github.com/camunda/zeebe/blob/main/dist/src/main/config/broker.standalone.yaml.template
+    environment: # https://docs.camunda.io/docs/self-managed/zeebe-deployment/configuration/environment-variables/
       - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.camunda.zeebe.exporter.ElasticsearchExporter
       - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_URL=http://elasticsearch:9200
       - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_BULK_SIZE=1
@@ -30,13 +29,12 @@ services:
     depends_on:
       - elasticsearch
 
-  operate:
+  operate: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#operate
     image: camunda/operate:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
     container_name: operate
     ports:
       - "8081:8080"
-    environment:
-      # See: https://docs.camunda.io/docs/self-managed/operate-deployment/configuration/
+    environment: # https://docs.camunda.io/docs/self-managed/operate-deployment/configuration/
       # For more information regarding configuration with Identity see:
       # https://docs.camunda.io/docs/self-managed/operate-deployment/authentication/#identity
       - SPRING_PROFILES_ACTIVE=identity-auth
@@ -56,13 +54,12 @@ services:
       - identity
       - elasticsearch
 
-  tasklist:
+  tasklist: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#tasklist
     image: camunda/tasklist:${CAMUNDA_PLATFORM_VERSION:-8.0.0}
     container_name: tasklist
     ports:
       - "8082:8080"
-    environment:
-      # See: https://docs.camunda.io/docs/self-managed/tasklist-deployment/configuration/
+    environment: # https://docs.camunda.io/docs/self-managed/tasklist-deployment/configuration/
       # For more information regarding configuration with Identity see:
       # https://docs.camunda.io/docs/self-managed/tasklist-deployment/authentication/#identity
       - SPRING_PROFILES_ACTIVE=identity-auth
@@ -82,13 +79,12 @@ services:
       - identity
       - elasticsearch
 
-  optimize:
+  optimize: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#optimize
     image: camunda/optimize:${CAMUNDA_OPERATE_VERSION:-3.8.0-RC2}
     container_name: optimize
     ports:
       - "8083:8090"
-    environment:
-      # See: https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/
+    environment: # https://docs.camunda.io/docs/self-managed/optimize-deployment/setup/installation/#available-environment-variables
       - SPRING_PROFILES_ACTIVE=ccsm
       - CAMUNDA_OPTIMIZE_IDENTITY_ISSUER_URL=http://localhost:18080/auth/realms/camunda-platform
       - CAMUNDA_OPTIMIZE_IDENTITY_ISSUER_BACKEND_URL=http://keycloak:8080/auth/realms/camunda-platform
@@ -113,13 +109,12 @@ services:
       - identity
       - elasticsearch
 
-  identity:
+  identity: # https://c8.docs.camunda.io/docs/self-managed/platform-deployment/docker/#identity
     container_name: identity
     image: camunda/identity:8.0.0
     ports:
       - "8084:8084"
-    environment:
-      # See: https://docs.camunda.io/docs/self-managed/identity/deployment/configuration-variables/
+    environment: # https://c8.docs.camunda.io/docs/self-managed/identity/deployment/configuration-variables/
       SERVER_PORT: 8084
       KEYCLOAK_URL: http://keycloak:8080/auth
       IDENTITY_AUTH_PROVIDER_BACKEND_URL: http://keycloak:8080/auth/realms/camunda-platform
@@ -142,7 +137,7 @@ services:
     depends_on:
       - keycloak
 
-  keycloak:
+  keycloak: # https://hub.docker.com/r/jboss/keycloak
     container_name: keycloak
     image: jboss/keycloak:16.1.1
     ports:
@@ -153,7 +148,7 @@ services:
     networks:
       - identity-network
 
-  elasticsearch:
+  elasticsearch: # https://hub.docker.com/_/elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.16.2}
     container_name: elasticsearch
     ports:
@@ -185,6 +180,7 @@ volumes:
   elastic:
 
 networks:
-  # Note there are two bridge networks. One for Zeebe and one for Identity. Operate, Tasklist, and Optimize use both
+  # Note there are two bridge networks: One for Zeebe and one for Identity.
+  # Operate, Tasklist, and Optimize use both
   camunda-platform:
   identity-network:
