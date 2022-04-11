@@ -23,4 +23,10 @@ And log in as demo/demo
 
 You'll notice [Identity](http:/localhost:8084)/[Keycloak](http:/localhost:18080) are being used to log into each application.
 
+If Optimize, Identity, and Keycloak are not needed you can use the core docker-compose.yml instead which does not include these components:
+
+```
+docker-compose -f docker-compose.yml up -d
+```
+
 Zeebe, Operate, Tasklist, along with Optimize require a separate network from Identity as you'll see in the docker-compose file. Feedback and updates are welcome!
